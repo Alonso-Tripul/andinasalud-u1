@@ -17,9 +17,9 @@ import pe.upeu.andinasalud.domain.model.Sede
 class CitasSimuladas {
     val paciente = Paciente(
         id = "P-0417",
-        nombre = "Lucía Quispe Mamani",
+        nombre = "Rony",
         documento = "70154823",
-        correo = "lucia.quispe@correo.pe",
+        correo = "rony@correo.pe",
         telefono = "987 654 321",
     )
 
