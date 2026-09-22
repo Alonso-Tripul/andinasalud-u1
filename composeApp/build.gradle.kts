@@ -13,6 +13,7 @@ kotlin {
         compileSdk = 37
         minSdk = 24
         compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
+        withHostTest { }
     }
 
     if (!providers.gradleProperty("androidOnly").map(String::toBoolean).getOrElse(false)) {
@@ -44,3 +45,4 @@ kotlin {
         }
     }
 }
+
