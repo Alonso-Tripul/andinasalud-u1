@@ -70,23 +70,27 @@ class ReglasCitaTest {
     }
 
     @Test
-    fun cancelacionRequiereMasDeVeinticuatroHoras() = runBlocking {
-        val repositorio = RepositorioPrueba()
-        repositorio.citas.add(repositorio.cita(1, "2026-09-23", "12:00"))
-        val resultado = CancelarCitaUseCase(repositorio, reloj)(1)
-        assertIs<ResultadoCancelacion.Rechazada>(resultado)
-        assertIs<EstadoCita.Programada>(repositorio.citas.single().estado)
+    fun cancelacionRequiereMasDeVeinticuatroHoras() {
+        runBlocking {
+            val repositorio = RepositorioPrueba()
+            repositorio.citas.add(repositorio.cita(1, "2026-09-23", "12:00"))
+            val resultado = CancelarCitaUseCase(repositorio, reloj)(1)
+            assertIs<ResultadoCancelacion.Rechazada>(resultado)
+            assertIs<EstadoCita.Programada>(repositorio.citas.single().estado)
+        }
     }
 
     @Test
-    fun creaYCancelaUnaCitaValida() = runBlocking {
-        val repositorio = RepositorioPrueba()
-        val creacion = SolicitarCitaUseCase(repositorio, reloj)(solicitud())
-        assertIs<ResultadoSolicitud.Creada>(creacion)
-        assertEquals(1, repositorio.citas.size)
-        val cancelacion = CancelarCitaUseCase(repositorio, reloj)(creacion.cita.id)
-        assertIs<ResultadoCancelacion.Cancelada>(cancelacion)
-        assertIs<EstadoCita.Cancelada>(repositorio.citas.single().estado)
+    fun creaYCancelaUnaCitaValida() {
+        runBlocking {
+            val repositorio = RepositorioPrueba()
+            val creacion = SolicitarCitaUseCase(repositorio, reloj)(solicitud())
+            assertIs<ResultadoSolicitud.Creada>(creacion)
+            assertEquals(1, repositorio.citas.size)
+            val cancelacion = CancelarCitaUseCase(repositorio, reloj)(creacion.cita.id)
+            assertIs<ResultadoCancelacion.Cancelada>(cancelacion)
+            assertIs<EstadoCita.Cancelada>(repositorio.citas.single().estado)
+        }
     }
 }
 
@@ -115,3 +119,4 @@ private class RepositorioPrueba : CitaRepository {
         citas[citas.indexOfFirst { it.id == cita.id }] = cita
     }
 }
+
