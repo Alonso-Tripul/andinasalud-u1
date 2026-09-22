@@ -1,19 +1,18 @@
 package pe.upeu.andinasalud
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import pe.upeu.andinasalud.presentation.navigation.AppNavHost
+import pe.upeu.andinasalud.presentation.theme.AndinaSaludTheme
 
 @Composable
 fun App() {
-    MaterialTheme {
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Proyecto KMP inicial")
-        }
+    var oscuro by remember { mutableStateOf(false) }
+    AndinaSaludTheme(oscuro = oscuro) {
+        AppNavHost(oscuro = oscuro, onTema = { oscuro = it })
     }
 }
 
