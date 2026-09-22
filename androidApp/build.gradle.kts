@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "pe.upeu.andinasalud"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "pe.upeu.andinasalud"
@@ -28,4 +28,3 @@ dependencies {
     implementation(project(":composeApp"))
     implementation("androidx.activity:activity-compose:1.10.1")
 }
-

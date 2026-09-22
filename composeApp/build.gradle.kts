@@ -10,7 +10,7 @@ plugins {
 kotlin {
     androidLibrary {
         namespace = "pe.upeu.andinasalud.shared"
-        compileSdk = 35
+        compileSdk = 37
         minSdk = 24
         compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
     }

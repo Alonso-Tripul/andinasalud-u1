@@ -6,7 +6,7 @@ Aplicación de citas médicas hecha con Kotlin Multiplatform y Compose Multiplat
 
 1. Clona `https://github.com/Alonso-Tripul/andinasalud-u1.git` o usa **File > New > Project from Version Control**.
 2. Selecciona la rama `examen-ancajima` en Android Studio. `main` conserva solamente el proyecto KMP inicial.
-3. Abre la carpeta raíz, espera a que termine **Gradle Sync** y deja que Android Studio instale los componentes del SDK que solicite.
+3. Abre la carpeta raíz, espera a que termine **Gradle Sync** e instala **Android SDK Platform API 37** si Android Studio lo solicita. `compileSdk` es 37 por los requisitos de Compose; `targetSdk` sigue en 35 y `minSdk` en 24.
 4. Elige la configuración `androidApp` y ejecuta en un emulador o dispositivo Android.
 
 Para iOS hace falta una Mac con Xcode. Abre `iosApp/iosApp.xcodeproj`, selecciona un simulador y ejecuta `iosApp`. El script de Xcode compila el framework de `composeApp` antes de construir la aplicación.
