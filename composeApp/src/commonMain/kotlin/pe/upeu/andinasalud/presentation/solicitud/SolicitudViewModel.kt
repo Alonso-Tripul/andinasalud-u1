@@ -1,5 +1,6 @@
 package pe.upeu.andinasalud.presentation.solicitud
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -47,6 +48,7 @@ class SolicitudViewModel(
                 _uiState.value = if (catalogo.especialidades.isEmpty() || catalogo.sedes.isEmpty())
                     UiState.Vacio else UiState.Contenido(catalogo)
             } catch (error: Exception) {
+                if (error is CancellationException) throw error
                 _uiState.value = UiState.Error(error.message ?: "No se cargó el formulario")
             }
         }
@@ -79,6 +81,7 @@ class SolicitudViewModel(
                     )
                 }
             } catch (error: Exception) {
+                if (error is CancellationException) throw error
                 _formulario.value = actual.copy(errorGeneral = error.message ?: "No se pudo solicitar la cita")
             } finally {
                 _formulario.value = _formulario.value.copy(enviando = false)
@@ -88,4 +91,3 @@ class SolicitudViewModel(
 
     fun cerrar() { scope.cancel() }
 }
-

@@ -1,6 +1,7 @@
 package pe.upeu.andinasalud.presentation.citas
 
 import kotlin.time.Clock
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -38,6 +39,7 @@ class CitasViewModel(private val obtenerCitas: ObtenerCitasUseCase) {
                 resumen = obtenerCitas()
                 publicar()
             } catch (error: Exception) {
+                if (error is CancellationException) throw error
                 _uiState.value = CitasUiState.Error(error.message ?: "No se pudieron cargar las citas")
             }
         }
@@ -104,4 +106,3 @@ private fun String.normalizada(): String = lowercase()
     .replace('á', 'a').replace('é', 'e').replace('í', 'i')
     .replace('ó', 'o').replace('ú', 'u').replace('ü', 'u')
     .replace('ñ', 'n')
-

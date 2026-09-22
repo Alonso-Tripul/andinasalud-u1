@@ -1,5 +1,6 @@
 package pe.upeu.andinasalud.presentation.perfil
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -24,6 +25,7 @@ class PerfilViewModel(private val obtenerPaciente: ObtenerPacienteUseCase) {
             _uiState.value = UiState.Cargando
             try { _uiState.value = UiState.Contenido(obtenerPaciente()) }
             catch (error: Exception) {
+                if (error is CancellationException) throw error
                 _uiState.value = UiState.Error(error.message ?: "No se pudo cargar el perfil")
             }
         }
@@ -31,4 +33,3 @@ class PerfilViewModel(private val obtenerPaciente: ObtenerPacienteUseCase) {
 
     fun cerrar() { scope.cancel() }
 }
-

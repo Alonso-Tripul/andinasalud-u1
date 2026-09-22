@@ -1,5 +1,6 @@
 package pe.upeu.andinasalud.presentation.detalle
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,6 +35,7 @@ class DetalleCitaViewModel(
                 val cita = obtenerDetalle(id)
                 _uiState.value = if (cita == null) UiState.Vacio else UiState.Contenido(cita)
             } catch (error: Exception) {
+                if (error is CancellationException) throw error
                 _uiState.value = UiState.Error(error.message ?: "No se pudo cargar la cita")
             }
         }
@@ -55,4 +57,3 @@ class DetalleCitaViewModel(
     fun limpiarMensaje() { _mensaje.value = null }
     fun cerrar() { scope.cancel() }
 }
-
