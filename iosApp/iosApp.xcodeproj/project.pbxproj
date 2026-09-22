@@ -1,0 +1,134 @@
+// !$*UTF8*$!
+{
+    archiveVersion = 1;
+    classes = {};
+    objectVersion = 56;
+    objects = {
+        A00000000000000000000001 = {isa = PBXBuildFile; fileRef = A00000000000000000000004; };
+        A00000000000000000000002 = {isa = PBXBuildFile; fileRef = A00000000000000000000005; };
+        A00000000000000000000003 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        A00000000000000000000004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndinaSaludApp.swift; sourceTree = "<group>"; };
+        A00000000000000000000005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+        A00000000000000000000006 = {
+            isa = PBXGroup;
+            children = (A00000000000000000000007, A00000000000000000000008);
+            sourceTree = "<group>";
+        };
+        A00000000000000000000007 = {
+            isa = PBXGroup;
+            children = (A00000000000000000000004, A00000000000000000000005);
+            path = iosApp;
+            sourceTree = "<group>";
+        };
+        A00000000000000000000008 = {
+            isa = PBXGroup;
+            children = (A00000000000000000000003);
+            name = Products;
+            sourceTree = "<group>";
+        };
+        A00000000000000000000009 = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = A00000000000000000000010;
+            buildPhases = (A00000000000000000000011, A00000000000000000000012, A00000000000000000000013);
+            buildRules = ();
+            dependencies = ();
+            name = iosApp;
+            productName = iosApp;
+            productReference = A00000000000000000000003;
+            productType = "com.apple.product-type.application";
+        };
+        A0000000000000000000000A = {
+            isa = PBXProject;
+            attributes = {BuildIndependentTargetsInParallel = 1; LastUpgradeCheck = 1600; TargetAttributes = {A00000000000000000000009 = {CreatedOnToolsVersion = 16.0; }; }; };
+            buildConfigurationList = A00000000000000000000014;
+            compatibilityVersion = "Xcode 14.0";
+            developmentRegion = es;
+            hasScannedForEncodings = 0;
+            knownRegions = (es, en, Base);
+            mainGroup = A00000000000000000000006;
+            productRefGroup = A00000000000000000000008;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (A00000000000000000000009);
+        };
+        A00000000000000000000010 = {
+            isa = XCConfigurationList;
+            buildConfigurations = (A00000000000000000000015, A00000000000000000000016);
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        A00000000000000000000011 = {
+            isa = PBXShellScriptBuildPhase;
+            alwaysOutOfDate = 1;
+            buildActionMask = 2147483647;
+            files = ();
+            inputPaths = ();
+            name = "Build Kotlin framework";
+            outputPaths = ();
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "cd \"$SRCROOT/..\"\n./gradlew :composeApp:embedAndSignAppleFrameworkForXcode\n";
+        };
+        A00000000000000000000012 = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (A00000000000000000000001, A00000000000000000000002);
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        A00000000000000000000013 = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = ();
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        A00000000000000000000014 = {
+            isa = XCConfigurationList;
+            buildConfigurations = (A00000000000000000000017, A00000000000000000000018);
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        A00000000000000000000015 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+                CODE_SIGN_STYLE = Automatic;
+                FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)");
+                GENERATE_INFOPLIST_FILE = YES;
+                INFOPLIST_KEY_CFBundleDisplayName = AndinaSalud;
+                INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+                LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
+                OTHER_LDFLAGS = ("$(inherited)", "-framework", ComposeApp);
+                PRODUCT_BUNDLE_IDENTIFIER = pe.upeu.andinasalud;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SDKROOT = iphoneos;
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+            };
+            name = Debug;
+        };
+        A00000000000000000000016 = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_STYLE = Automatic;
+                FRAMEWORK_SEARCH_PATHS = ("$(inherited)", "$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)");
+                GENERATE_INFOPLIST_FILE = YES;
+                INFOPLIST_KEY_CFBundleDisplayName = AndinaSalud;
+                INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+                LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
+                OTHER_LDFLAGS = ("$(inherited)", "-framework", ComposeApp);
+                PRODUCT_BUNDLE_IDENTIFIER = pe.upeu.andinasalud;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SDKROOT = iphoneos;
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+            };
+            name = Release;
+        };
+        A00000000000000000000017 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; IPHONEOS_DEPLOYMENT_TARGET = 14.0; SDKROOT = iphoneos; }; name = Debug; };
+        A00000000000000000000018 = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; IPHONEOS_DEPLOYMENT_TARGET = 14.0; SDKROOT = iphoneos; }; name = Release; };
+    };
+    rootObject = A0000000000000000000000A;
+}
+
