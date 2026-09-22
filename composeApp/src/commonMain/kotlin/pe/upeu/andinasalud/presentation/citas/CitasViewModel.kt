@@ -1,6 +1,7 @@
 package pe.upeu.andinasalud.presentation.citas
 
 import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,7 +68,9 @@ class CitasViewModel(private val obtenerCitas: ObtenerCitasUseCase) {
 
     private fun publicar() {
         val fuente = resumen ?: return
-        val ordenadas = fuente.citas.sortedWith(compareBy<Cita> { it.fecha }.thenBy { it.hora })
+        val ahora = Clock.System.now()
+        val zona = TimeZone.currentSystemDefault()
+        val ordenadas = ordenarCitasPorProximidad(fuente.citas, ahora, zona)
         val visibles = ordenadas.filter { cita ->
             val coincideEstado = when (filtro) {
                 FiltroEstado.TODAS -> true
@@ -81,8 +84,6 @@ class CitasViewModel(private val obtenerCitas: ObtenerCitasUseCase) {
                 cita.medico.nombre.normalizada().contains(termino)
             coincideEstado && coincideBusqueda
         }
-        val ahora = Clock.System.now()
-        val zona = TimeZone.currentSystemDefault()
         val proxima = ordenadas.firstOrNull {
             it.estado is EstadoCita.Programada &&
                 LocalDateTime(it.fecha, it.hora).toInstant(zona) > ahora
@@ -102,7 +103,20 @@ class CitasViewModel(private val obtenerCitas: ObtenerCitasUseCase) {
     fun cerrar() { scope.cancel() }
 }
 
+internal fun ordenarCitasPorProximidad(citas: List<Cita>, ahora: Instant, zona: TimeZone): List<Cita> =
+    citas.map { cita -> cita to LocalDateTime(cita.fecha, cita.hora).toInstant(zona) }
+        .sortedWith(
+            compareBy<Pair<Cita, Instant>> { (_, instante) -> if (instante >= ahora) 0 else 1 }
+                .thenBy { (_, instante) ->
+                    if (instante >= ahora) (instante - ahora).inWholeSeconds
+                    else (ahora - instante).inWholeSeconds
+                }
+                .thenBy { (cita, _) -> cita.id },
+        )
+        .map { (cita, _) -> cita }
+
 private fun String.normalizada(): String = lowercase()
     .replace('á', 'a').replace('é', 'e').replace('í', 'i')
     .replace('ó', 'o').replace('ú', 'u').replace('ü', 'u')
     .replace('ñ', 'n')
+
