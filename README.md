@@ -60,4 +60,5 @@ La modalidad individual indicada por el estudiante difiere del criterio de colab
 
 ## Pruebas
 
-`composeApp/src/commonTest` contiene pruebas de las cinco reglas de negocio, incluida una creación y cancelación correcta. Se pueden ejecutar desde Android Studio tras sincronizar Gradle. La compilación Android no se pudo completar en el entorno de generación porque el SDK local está protegido contra lectura; la ejecución en dispositivo y en Mac/iOS queda pendiente de verificación real.
+`composeApp/src/commonTest` contiene pruebas de las cinco reglas de negocio, una creación y cancelación correcta y el orden de la lista de citas. El módulo habilita `androidHostTest` para ejecutar esas pruebas comunes en Windows. Tras sincronizar Gradle en Android Studio, ejecuta `:composeApp:testAndroidHostTest` desde la ventana Gradle o desde la terminal del proyecto con `./gradlew :composeApp:testAndroidHostTest -PandroidOnly=true` (en PowerShell, `./gradlew.bat`). La app ya se compiló y ejecutó en el emulador Android del estudiante; las pruebas automatizadas y la ejecución en Mac/iOS siguen pendientes de verificación real.
+
