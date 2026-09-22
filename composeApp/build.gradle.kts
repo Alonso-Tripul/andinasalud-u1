@@ -14,19 +14,33 @@ kotlin {
         minSdk = 24
         compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
     }
-    listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
-        target.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
+
+    if (!providers.gradleProperty("androidOnly").map(String::toBoolean).getOrElse(false)) {
+        listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
+            target.binaries.framework {
+                baseName = "ComposeApp"
+                isStatic = true
+            }
         }
     }
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+            implementation("io.insert-koin:koin-core:4.2.2")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0")
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.11.0")
+        }
+        androidMain.dependencies {
+            implementation("androidx.activity:activity-compose:1.10.1")
+        }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
     }
 }
-
